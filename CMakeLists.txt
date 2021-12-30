@@ -9,7 +9,6 @@ message(STATUS "CMake ProjSourceDir: ${PROJECT_SOURCE_DIR}")
 
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
-# Update submodules as needed
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
         message(STATUS "Submodule update")
@@ -17,12 +16,12 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                         RESULT_VARIABLE GIT_SUBMOD_RESULT)
         if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-            message(FATAL_ERROR "sudo git submodule update --init --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+            message(FATAL_ERROR "git submodule update --init --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
         endif()
     endif()
 endif()
 
-if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/pll/CMakeLists.txt")
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/deps/pll/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
@@ -30,11 +29,11 @@ if (NOT MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic -Wextra -Wno-unused-function -Wno-unused-parameter")
 endif()
 
-# add_subdirectory(extern/pll)
+add_subdirectory(deps/pll)
 add_executable(plv "src/main.cpp")
 
-#target_link_libraries(plv pll)
-#target_include_directories(plv PUBLIC ${PROJECT_SOURCE_DIR}/extern/pll)
+target_link_libraries(plv pll)
+target_include_directories(plv PUBLIC ${PROJECT_SOURCE_DIR}/deps/pll/include)
 
 set_target_properties(plv PROPERTIES
 	CXX_STANDARD 17
