@@ -7,6 +7,9 @@ message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "CMAKE Generator: ${CMAKE_GENERATOR}")
 message(STATUS "CMake ProjSourceDir: ${PROJECT_SOURCE_DIR}")
 
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/x64/)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/x64/)
+
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     option(GIT_SUBMODULE "Check submodules during build" ON)

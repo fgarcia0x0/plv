@@ -25,7 +25,7 @@ int main(int argc, const char* argv[])
 
     if (!argc || !argv)
     {
-        std::cerr << "[-] invalid arguments, please run as: \"./plc expr\"\n";
+        std::cerr << "[-] invalid arguments, please run as: \"./plv expr\"\n";
         return EXIT_FAILURE;
     }
     
