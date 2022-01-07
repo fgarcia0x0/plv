@@ -20,8 +20,6 @@ static std::unordered_map<token, connective_properties> connective_props_map
     { token{')', token::type::rparan},     {3u, connective_type::none,        operation_mode::none,   associativity::none}}, 
 };
 
-// void handle_case(char c, cnf_handle_cases::distributive);
-
 int main(int argc, const char* argv[])
 {
     argc--, argv++;
